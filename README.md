@@ -1,28 +1,49 @@
-# Creovate Global Site Package
+# Creovate Global Website v3 — Multi-page
 
-This package contains:
+This is the multi-page version of the Creovate Global website.
 
-1. `index.html` — clickable single-file prototype.
-2. `blueprint.md` — founder-grade website blueprint with page layout and ready-to-paste copy.
+## Pages
 
-## How to use
+- `index.html` — Homepage
+- `about.html` — About and founder section
+- `products.html` — Products and concepts
+- `services.html` — Digital, creative and print services
+- `portfolio.html` — Portfolio and work samples
+- `roadmap.html` — Live, in-build and exploring roadmap
+- `contact.html` — Contact and project enquiry page
 
-Open `index.html` in your browser to view the prototype.
+## Folders
 
-## How to deploy quickly
+- `assets/css/styles.css` — Main stylesheet
+- `assets/js/main.js` — Navigation and basic scripts
+- `assets/images/` — Add logos, screenshots, founder photo and print samples here
 
-### Cloudflare Pages
-1. Create a new Pages project.
-2. Upload this folder or connect a GitHub repository.
-3. Set the output folder as root.
-4. Deploy.
+## Important edits before sharing widely
 
-### Netlify / Vercel
-Upload the folder or connect GitHub.
+1. Replace WhatsApp placeholder:
+   `https://wa.me/2340000000000`
 
-## What to edit first
+2. Replace email if needed:
+   `hello@creovateglobal.com`
 
-- Replace placeholder email: `hello@creovateglobal.com`
-- Add your real logo.
-- Replace project mockups with screenshots.
-- After UK registration completes, update “UK registration in progress” to “UK-registered”.
+3. Add real founder photo:
+   Put image in `assets/images/`, then replace the placeholder avatar in `about.html`.
+
+4. Add real product screenshots:
+   Add screenshots in `assets/images/` and replace mockup placeholders.
+
+5. Add Creovate Prints portfolio images:
+   Add flyers, banners and business card samples in `assets/images/`, then update `portfolio.html`.
+
+## Git update commands
+
+From your local repo folder:
+
+```bash
+git status
+git add .
+git commit -m "Convert Creovate Global website to multi-page v3"
+git push
+```
+
+Cloudflare Pages should update automatically after GitHub receives the new commit.

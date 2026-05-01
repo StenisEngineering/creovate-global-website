@@ -3,368 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creovate Global Ltd — Building Digital Products for Real-World Problems</title>
-  <meta name="description" content="Creovate Global is a Nigeria-founded product and innovation company with UK registration in progress, building digital products across business tools, commerce, fintech, health, and data systems." />
-  <style>
-    :root{
-      --bg:#07111f;
-      --bg2:#0b1628;
-      --card:#0f2037;
-      --card2:#122642;
-      --text:#eef5ff;
-      --muted:#9fb1c8;
-      --line:rgba(255,255,255,.11);
-      --gold:#f5b942;
-      --gold2:#ffd979;
-      --blue:#3aa8ff;
-      --green:#45d18a;
-      --danger:#ff657a;
-      --shadow:0 24px 80px rgba(0,0,0,.35);
-      --radius:26px;
-      --max:1180px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 20% -10%, rgba(58,168,255,.22), transparent 36%),
-        radial-gradient(circle at 85% 5%, rgba(245,185,66,.18), transparent 34%),
-        linear-gradient(180deg, #06101d 0%, #081425 44%, #07111f 100%);
-      color:var(--text);
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max);margin:0 auto;padding:0 22px}
-    .nav{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter: blur(18px);
-      background:rgba(7,17,31,.72);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.03em}
-    .logo{
-      width:42px;height:42px;border-radius:14px;
-      background:linear-gradient(135deg,var(--gold),var(--blue));
-      display:grid;place-items:center;color:#07111f;font-weight:950;
-      box-shadow:0 14px 34px rgba(245,185,66,.22);
-    }
-    .nav-links{display:flex;align-items:center;gap:22px;color:var(--muted);font-size:14px}
-    .nav-links a:hover{color:var(--text)}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:9px;
-      min-height:46px;padding:0 18px;border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.06);
-      color:var(--text);font-weight:750;
-      cursor:pointer;transition:.2s ease;
-    }
-    .btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
-    .btn.primary{
-      background:linear-gradient(135deg,var(--gold),var(--gold2));
-      color:#07111f;border:0;box-shadow:0 18px 44px rgba(245,185,66,.22)
-    }
-    .btn.blue{background:linear-gradient(135deg,#248dff,#6dc8ff);color:#04101d;border:0}
-    .mobile-toggle{display:none}
-    .hero{padding:92px 0 72px;position:relative}
-    .badge{
-      display:inline-flex;gap:8px;align-items:center;
-      border:1px solid rgba(245,185,66,.28);
-      background:rgba(245,185,66,.08);
-      padding:9px 13px;border-radius:999px;
-      color:#ffe6a7;font-size:13px;font-weight:750;
-    }
-    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
-    h1{
-      font-size:clamp(42px,6vw,82px);
-      line-height:.94;margin:22px 0 20px;letter-spacing:-.07em;
-    }
-    .lead{font-size:clamp(18px,2vw,22px);line-height:1.65;color:#c6d4e8;max-width:720px}
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0}
-    .trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
-    .trust-card{
-      border:1px solid var(--line);background:rgba(255,255,255,.045);
-      border-radius:20px;padding:18px;
-    }
-    .trust-card strong{display:block;font-size:22px}
-    .trust-card span{color:var(--muted);font-size:13px}
-    .showcase{
-      border:1px solid var(--line);border-radius:34px;
-      padding:16px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
-      box-shadow:var(--shadow);position:relative;overflow:hidden;
-    }
-    .showcase:before{
-      content:"";position:absolute;inset:-80px -100px auto auto;width:260px;height:260px;
-      background:radial-gradient(circle, rgba(245,185,66,.24), transparent 65%);
-    }
-    .browser{
-      border:1px solid var(--line);border-radius:24px;background:#081525;overflow:hidden;position:relative;
-    }
-    .bar{height:44px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 14px}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.24)}
-    .screen{padding:20px}
-    .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .metric{
-      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
-      border:1px solid var(--line);border-radius:18px;padding:16px;
-    }
-    .metric small{color:var(--muted)} .metric b{display:block;font-size:25px;margin-top:8px}
-    .product-mini{margin-top:14px;border:1px solid var(--line);border-radius:20px;padding:18px;background:linear-gradient(135deg,rgba(58,168,255,.14),rgba(245,185,66,.1))}
-    section{padding:78px 0;border-top:1px solid rgba(255,255,255,.06)}
-    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:32px}
-    .eyebrow{color:var(--gold);font-weight:850;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
-    h2{font-size:clamp(32px,4vw,54px);line-height:1;margin:10px 0 0;letter-spacing:-.055em}
-    .section-head p{color:var(--muted);line-height:1.7;max-width:540px;margin:0}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{
-      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
-      border:1px solid var(--line);border-radius:var(--radius);
-      padding:24px;box-shadow:0 20px 56px rgba(0,0,0,.18);
-    }
-    .icon{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:rgba(245,185,66,.12);color:var(--gold);font-weight:900;margin-bottom:18px}
-    .card h3{margin:0 0 10px;font-size:22px;letter-spacing:-.03em}
-    .card p{color:var(--muted);line-height:1.65;margin:0}
-    .portfolio{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .project{
-      border:1px solid var(--line);border-radius:30px;overflow:hidden;background:rgba(255,255,255,.05);
-      box-shadow:0 20px 60px rgba(0,0,0,.2);
-    }
-    .project-top{height:210px;padding:22px;background:
-      radial-gradient(circle at 82% 18%, rgba(245,185,66,.26), transparent 34%),
-      linear-gradient(135deg,rgba(58,168,255,.23),rgba(255,255,255,.04));
-      display:flex;align-items:end;
-    }
-    .mock-card{width:100%;border:1px solid var(--line);background:rgba(5,13,24,.72);border-radius:22px;padding:18px}
-    .mock-row{height:12px;border-radius:20px;background:rgba(255,255,255,.16);margin:10px 0}
-    .mock-row.small{width:42%}.mock-row.mid{width:70%}
-    .project-body{padding:24px}
-    .status{display:inline-flex;padding:7px 10px;border-radius:999px;background:rgba(69,209,138,.11);color:#a4ffd0;font-size:12px;font-weight:800;margin-bottom:12px}
-    .status.concept{background:rgba(58,168,255,.12);color:#b9e4ff}
-    .status.progress{background:rgba(245,185,66,.12);color:#ffe1a0}
-    .project h3{font-size:25px;margin:0 0 10px}
-    .project p{color:var(--muted);line-height:1.65;margin:0 0 18px}
-    .tags{display:flex;gap:8px;flex-wrap:wrap}
-    .tag{border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:#cbd9ea;font-size:12px;background:rgba(255,255,255,.04)}
-    .split{display:grid;grid-template-columns:.85fr 1.15fr;gap:26px;align-items:start}
-    .timeline{display:grid;gap:14px}
-    .step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
-    .num{width:44px;height:44px;border-radius:16px;background:rgba(245,185,66,.13);display:grid;place-items:center;color:var(--gold);font-weight:950}
-    .step h4{margin:0 0 6px;font-size:18px}.step p{margin:0;color:var(--muted);line-height:1.6}
-    .cta{
-      border:1px solid rgba(245,185,66,.28);border-radius:36px;padding:44px;
-      background:
-        radial-gradient(circle at 85% 20%, rgba(245,185,66,.25), transparent 36%),
-        linear-gradient(135deg,rgba(58,168,255,.16),rgba(255,255,255,.05));
-      display:grid;grid-template-columns:1.4fr .6fr;gap:24px;align-items:center;
-    }
-    .cta h2{margin:0 0 14px}.cta p{color:#c8d7ea;line-height:1.7;margin:0}
-    footer{padding:36px 0 44px;color:var(--muted);border-top:1px solid var(--line)}
-    .footer-inner{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
-    @media(max-width:900px){
-      .hero-grid,.split,.cta{grid-template-columns:1fr}
-      .cards,.portfolio,.trust-row{grid-template-columns:1fr}
-      .section-head{display:block}
-      .section-head p{margin-top:14px}
-      .nav-links{display:none;position:absolute;left:22px;right:22px;top:76px;flex-direction:column;align-items:flex-start;background:#0b1628;border:1px solid var(--line);border-radius:20px;padding:18px}
-      .nav-links.open{display:flex}
-      .mobile-toggle{display:inline-flex}
-      h1{letter-spacing:-.055em}
-    }
-  </style>
+  <title>Creovate Global — Websites, Apps, Digital Products & Creative Print Solutions</title>
+  <meta name="description" content="Creovate Global is a Nigeria-founded, UK-registration-in-progress digital and creative company building websites, apps, business systems, digital products, branding and print solutions." />
+  <meta property="og:title" content="Creovate Global — Websites, Apps, Digital Products & Creative Print Solutions" />
+  <meta property="og:description" content="Creovate Global is a Nigeria-founded, UK-registration-in-progress digital and creative company building websites, apps, business systems, digital products, branding and print solutions." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="#home"><span class="logo">CG</span><span>Creovate Global</span></a>
-      <div class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#products">Products</a>
-        <a href="#services">What We Do</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <button class="btn mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">Menu</button>
-      <a class="btn primary" href="#contact">Work with us</a>
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="logo">CG</span><span>Creovate Global</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html" class="">About</a>
+      <a href="products.html" class="">Products</a>
+      <a href="services.html" class="">Services</a>
+      <a href="portfolio.html" class="">Portfolio</a>
+      <a href="roadmap.html" class="">Roadmap</a>
+      <a href="contact.html" class="">Contact</a>
     </div>
-  </nav>
+    <button class="btn mobile-toggle" onclick="toggleMenu()">Menu</button>
+    <a class="btn primary" href="contact.html">Start a project</a>
+  </div>
+</nav>
 
-  <main id="home" class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="badge">Nigeria-founded • UK registration in progress • Product studio</div>
-        <h1>Building digital products for real-world business problems.</h1>
-        <p class="lead">
-          Creovate Global is a founder-led innovation company developing practical digital products across small business tools, commerce, fintech operations, health data, and AI-enabled workflows.
-        </p>
-        <div class="hero-actions">
-          <a href="#products" class="btn primary">View our products</a>
-          <a href="#services" class="btn">Explore our capabilities</a>
-        </div>
-        <div class="trust-row">
-          <div class="trust-card"><strong>5+</strong><span>Active product concepts and builds</span></div>
-          <div class="trust-card"><strong>UK + NG</strong><span>Cross-market perspective</span></div>
-          <div class="trust-card"><strong>SME-first</strong><span>Designed for practical adoption</span></div>
-        </div>
+<main class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="badge">Nigeria-founded • UK registration in progress • Digital + Creative company</div>
+      <h1>We build brands, websites, apps and digital products that help businesses grow.</h1>
+      <p class="lead">Creovate Global is a founder-led digital and creative company combining product strategy, website and app development, business systems, branding, graphics and print solutions.</p>
+      <div class="hero-actions">
+        <a href="products.html" class="btn primary">View products</a>
+        <a href="services.html" class="btn">Explore services</a>
+        <a href="contact.html" class="btn blue">Work with us</a>
       </div>
-
-      <div class="showcase">
-        <div class="browser">
-          <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-          <div class="screen">
-            <div class="metric-grid">
-              <div class="metric"><small>Product focus</small><b>Business tools</b></div>
-              <div class="metric"><small>Market lens</small><b>Africa + UK</b></div>
-              <div class="metric"><small>Build style</small><b>Offline-first</b></div>
-              <div class="metric"><small>Execution</small><b>Founder-led</b></div>
-            </div>
-            <div class="product-mini">
-              <small style="color:#9fb1c8;">Featured product</small>
-              <h3 style="margin:8px 0 8px;">InvoKitPro</h3>
-              <p style="margin:0;color:#cbd9ea;line-height:1.55;">Offline-first invoicing and business toolkit for freelancers, traders, and small businesses.</p>
-            </div>
+      <div class="trust-row">
+        <div class="trust-card"><strong>Live product</strong><span>InvoKitPro is built and available to try.</span></div>
+        <div class="trust-card"><strong>Digital + Print</strong><span>Websites, apps, graphics, branding and print assets.</span></div>
+        <div class="trust-card"><strong>UK + NG</strong><span>Cross-market perspective for growing businesses.</span></div>
+      </div>
+    </div>
+    <div class="showcase">
+      <div class="browser">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="screen">
+          <div class="metric-grid">
+            <div class="metric"><small>Flagship</small><b>InvoKitPro</b></div>
+            <div class="metric"><small>Creative arm</small><b>Creovate Prints</b></div>
+            <div class="metric"><small>Client work</small><b>Web + Apps</b></div>
+            <div class="metric"><small>Approach</small><b>Build-ready</b></div>
           </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <section id="about">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">About Creovate</div>
-          <h2>A product company built around execution, not noise.</h2>
-        </div>
-        <p>
-          We identify everyday operational problems, design simple digital workflows, and build practical tools that can be adopted by real users — especially small businesses and underserved markets.
-        </p>
-      </div>
-      <div class="cards">
-        <div class="card"><div class="icon">01</div><h3>Problem-led</h3><p>We start from real operational pain points: invoices, orders, payments, verification, data, workflow, and decision-making.</p></div>
-        <div class="card"><div class="icon">02</div><h3>Market-aware</h3><p>Our work is shaped by Nigeria and UK realities: affordability, trust, offline use, mobile behaviour, and practical business adoption.</p></div>
-        <div class="card"><div class="icon">03</div><h3>Build-focused</h3><p>We move from idea to prototype to launch, using lean product design, strong UI/UX, and rapid validation.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="products">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">Portfolio</div>
-          <h2>Projects under the Creovate umbrella.</h2>
-        </div>
-        <p>These products represent our direction as a product studio: practical tools, trusted workflows, and systems that help businesses operate better.</p>
-      </div>
-
-      <div class="portfolio">
-        <article class="project">
-          <div class="project-top"><div class="mock-card"><div class="mock-row small"></div><div class="mock-row"></div><div class="mock-row mid"></div><div class="mock-row"></div></div></div>
-          <div class="project-body">
-            <span class="status">Active build</span>
+          <div class="card" style="margin-top:14px;">
+            <span class="status live">LIVE PRODUCT</span>
             <h3>InvoKitPro</h3>
-            <p>An offline-first business toolkit for invoices, receipts, clients, items, and small business records. Built for speed, simplicity, and everyday use.</p>
-            <div class="tags"><span class="tag">Offline-first</span><span class="tag">SME tools</span><span class="tag">PWA</span><span class="tag">Business records</span></div>
+            <p>Offline-first invoicing and business toolkit for freelancers, traders, and small businesses.</p>
+            <div class="hero-actions" style="margin:18px 0 0;">
+              <a class="btn primary" href="https://app.getinvokitpro.com" target="_blank" rel="noopener">Try InvoKitPro</a>
+              <a class="btn" href="products.html">View details</a>
+            </div>
           </div>
-        </article>
-
-        <article class="project">
-          <div class="project-top"><div class="mock-card"><div class="mock-row small"></div><div class="mock-row mid"></div><div class="mock-row"></div><div class="mock-row mid"></div></div></div>
-          <div class="project-body">
-            <span class="status progress">Prototype</span>
-            <h3>AfroCraveKitchen</h3>
-            <p>A food-commerce concept exploring African food discovery, ordering, and local brand presentation with a modern customer experience.</p>
-            <div class="tags"><span class="tag">Food commerce</span><span class="tag">Customer app</span><span class="tag">Ordering flow</span></div>
-          </div>
-        </article>
-
-        <article class="project">
-          <div class="project-top"><div class="mock-card"><div class="mock-row"></div><div class="mock-row mid"></div><div class="mock-row small"></div><div class="mock-row"></div></div></div>
-          <div class="project-body">
-            <span class="status concept">Concept phase</span>
-            <h3>BranchLoom</h3>
-            <p>A microfinance operations concept for loan workflow visibility, customer records, branch coordination, repayment tracking, and operational reporting.</p>
-            <div class="tags"><span class="tag">Fintech ops</span><span class="tag">MFB workflow</span><span class="tag">Nigeria market</span></div>
-          </div>
-        </article>
-
-        <article class="project">
-          <div class="project-top"><div class="mock-card"><div class="mock-row small"></div><div class="mock-row"></div><div class="mock-row mid"></div><div class="mock-row small"></div></div></div>
-          <div class="project-body">
-            <span class="status concept">Research phase</span>
-            <h3>Telina</h3>
-            <p>A telecom and data intelligence concept exploring visibility, analytics, and decision-support tools for emerging market telecom operations.</p>
-            <div class="tags"><span class="tag">Data intelligence</span><span class="tag">Analytics</span><span class="tag">Telecom</span></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="services">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">What We Do</div>
-          <h2>From idea to usable product.</h2>
-        </div>
-        <p>Creovate combines product strategy, UI/UX design, prototype development, and business workflow thinking to turn rough ideas into structured digital products.</p>
-      </div>
-      <div class="cards">
-        <div class="card"><div class="icon">UX</div><h3>Product Strategy & UX</h3><p>We define the problem, users, features, user journeys, MVP scope, and monetisation approach before building.</p></div>
-        <div class="card"><div class="icon">DEV</div><h3>Web & App Prototypes</h3><p>We create clickable prototypes, landing pages, MVP interfaces, dashboards, and product demos that can be tested quickly.</p></div>
-        <div class="card"><div class="icon">OPS</div><h3>Business Workflow Systems</h3><p>We design tools for invoices, records, orders, reports, customer management, verification, and internal operations.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="roadmap">
-    <div class="container split">
-      <div>
-        <div class="eyebrow">Operating Model</div>
-        <h2>How Creovate turns ideas into products.</h2>
-        <p class="lead" style="font-size:17px;">Our approach is simple: validate the problem, design the workflow, build the first usable version, then improve through feedback.</p>
-      </div>
-      <div class="timeline">
-        <div class="step"><div class="num">1</div><div><h4>Problem Discovery</h4><p>We study user pain points, business context, market gaps, and practical constraints.</p></div></div>
-        <div class="step"><div class="num">2</div><div><h4>Product Blueprint</h4><p>We define features, screens, data model, user flows, commercial logic, and launch scope.</p></div></div>
-        <div class="step"><div class="num">3</div><div><h4>Prototype & MVP</h4><p>We build a clickable interface or working first version that can be shown, tested, and refined.</p></div></div>
-        <div class="step"><div class="num">4</div><div><h4>Launch & Improve</h4><p>We release, observe behaviour, collect feedback, improve the product, and strengthen trust.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container">
-      <div class="cta">
-        <div>
-          <h2>Let’s build practical digital products that people can actually use.</h2>
-          <p>
-            For partnerships, product enquiries, pilots, or collaboration, contact Creovate Global. We are currently Nigeria-founded with UK registration in progress.
-          </p>
-        </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start">
-          <a class="btn primary" href="mailto:hello@creovateglobal.com">Email us</a>
-          <a class="btn" href="#products">View portfolio</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</main>
 
-  <footer>
-    <div class="container footer-inner">
-      <div class="brand"><span class="logo">CG</span><span>Creovate Global</span></div>
-      <div>© <span id="year"></span> Creovate Global. Nigeria-founded. UK registration in progress.</div>
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">What Creovate Does</div><h2>One company. Two delivery arms.</h2></div>
+      <p>Creovate Global supports technology and creative business needs through Creovate Digital and Creovate Prints.</p>
     </div>
-  </footer>
+    <div class="two-col">
+      <div class="card"><div class="icon blue">D</div><h3>Creovate Digital</h3><p>Websites, web apps, dashboards, MVPs, business systems and digital product prototypes.</p><div class="hero-actions"><a href="services.html" class="btn">Explore digital services</a></div></div>
+      <div class="card"><div class="icon print">P</div><h3>Creovate Prints</h3><p>Graphics, branding, flyers, posters, banners, business cards, social media designs and print-ready assets.</p><div class="hero-actions"><a href="portfolio.html" class="btn">View creative work</a></div></div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    document.querySelectorAll(".nav-links a").forEach(a => {
-      a.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open"));
-    });
-  </script>
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">Featured Work</div><h2>Products and services under Creovate.</h2></div>
+      <p>Our portfolio shows our direction: practical tools, strong visual identity and business systems that people can actually use.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="status live">LIVE PRODUCT</span><h3>InvoKitPro</h3><p>Offline-first invoice and business record toolkit for SMEs.</p><div class="hero-actions"><a href="https://app.getinvokitpro.com" class="btn primary" target="_blank" rel="noopener">Try it</a></div></div>
+      <div class="card"><span class="status progress">PROTOTYPE</span><h3>AfroCraveKitchen</h3><p>A food-commerce concept for African food discovery and ordering.</p><div class="hero-actions"><a href="https://afrocravekitchen.choma.app" class="btn" target="_blank" rel="noopener">View demo</a></div></div>
+      <div class="card"><span class="status print">SERVICE</span><h3>Creovate Prints</h3><p>Branding and print-ready creative assets for businesses and events.</p><div class="hero-actions"><a href="contact.html" class="btn">Request support</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta">
+      <div><h2>Need a website, app, business system, brand or print design?</h2><p>Start with a structured brief. We’ll define your scope, timeline and delivery approach before build.</p></div>
+      <div class="contact-actions"><a class="btn primary" href="contact.html">Start a project</a><a class="btn" href="services.html">See services</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="brand"><span class="logo">CG</span><span>Creovate Global</span></div>
+    <div>© <span id="year"></span> Creovate Global. Nigeria-founded. UK registration in progress.</div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
