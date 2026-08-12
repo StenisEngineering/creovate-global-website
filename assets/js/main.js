@@ -49,27 +49,54 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-// ── CONTACT FORM: static-site friendly mailto enquiry ──
-function handleForm() {
-  const name = document.getElementById('f-name')?.value.trim();
-  const email = document.getElementById('f-email')?.value.trim();
-  const svc = document.getElementById('f-svc')?.value;
-  const budget = document.getElementById('f-budget')?.value || 'Not specified';
-  const msg = document.getElementById('f-msg')?.value.trim();
-  if (!name || !email || !svc || !msg) { alert('Please fill in all required fields.'); return; }
-  const subject = encodeURIComponent(`Creovate project enquiry — ${svc}`);
-  const body = encodeURIComponent(
-    `Hello Creovate Global,\n\n` +
-    `My name is ${name}.\n` +
-    `Email: ${email}\n` +
-    `Service needed: ${svc}\n` +
-    `Budget range: ${budget}\n\n` +
-    `Project message:\n${msg}\n\n` +
-    `Sent from creovateglobal.com.`
-  );
-  const link = `mailto:hello@creovateglobal.com?subject=${subject}&body=${body}`;
-  window.location.href = link;
-  document.getElementById('fsuccess')?.classList.add('show');
+// ── CONTACT FORM: posts to Cloudflare Pages Function (/api/contact) ──
+const cform = document.getElementById('cform');
+if (cform) {
+  cform.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errEl = document.getElementById('ferror');
+    if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+
+    // Honeypot — real users never fill this hidden field
+    if (document.getElementById('f-company')?.value) return;
+
+    if (!cform.checkValidity()) { cform.reportValidity(); return; }
+
+    const payload = {
+      name: document.getElementById('f-name')?.value.trim(),
+      email: document.getElementById('f-email')?.value.trim(),
+      service: document.getElementById('f-svc')?.value,
+      budget: document.getElementById('f-budget')?.value || 'Not specified',
+      message: document.getElementById('f-msg')?.value.trim(),
+      company: document.getElementById('f-company')?.value || ''
+    };
+
+    const btn = cform.querySelector('.form-submit');
+    const label = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        cform.style.display = 'none';
+        document.getElementById('fsuccess')?.classList.add('show');
+        return;
+      }
+      throw new Error(data.error || 'Message could not be sent.');
+    } catch (err) {
+      if (errEl) {
+        errEl.textContent = (err && err.message ? err.message : 'Something went wrong.') +
+          ' You can also email hello@creovateglobal.com directly.';
+        errEl.style.display = 'block';
+      }
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+    }
+  });
 }
 
 // ── FOOTER YEAR ──

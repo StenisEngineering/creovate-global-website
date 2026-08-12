@@ -11,11 +11,11 @@
   <meta property="og:site_name" content="Creovate Global"/>
   <meta property="og:title" content="Contact Creovate Global — Start Your Project &amp; Get a Quote"/>
   <meta property="og:description" content="Contact Creovate Global for web, app, PWA, business-system or branding projects. Clear, honest quotes for SMEs in Nigeria and the UK — we reply within 24 hours."/>
-  <meta property="og:image" content="https://creovateglobal.com/assets/images/creovate-logo.png"/>
+  <meta property="og:image" content="https://creovateglobal.com/assets/social/og-cover.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Contact Creovate Global — Start Your Project &amp; Get a Quote"/>
   <meta name="twitter:description" content="Contact Creovate Global for web, app, PWA, business-system or branding projects. Clear, honest quotes for SMEs in Nigeria and the UK — we reply within 24 hours."/>
-  <meta name="twitter:image" content="https://creovateglobal.com/assets/images/creovate-logo.png"/>
+  <meta name="twitter:image" content="https://creovateglobal.com/assets/social/og-cover.png"/>
   <meta name="theme-color" content="#0b1f3a"/>
   <link rel="icon" href="assets/favicon/favicon.ico" sizes="any"/>
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png"/>
@@ -87,7 +87,8 @@
       <div class="form-card sr sr-d2">
         <h3>Tell us about your project</h3>
         <p>Fill in the form and we'll get back to you with a clear, honest response.</p>
-        <div id="cform">
+        <form id="cform" novalidate>
+          <input type="text" name="company" id="f-company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none"/>
           <div class="form-row">
             <div class="form-grp"><label for="f-name">Your name</label><input type="text" id="f-name" name="name" placeholder="John Adeyemi" required/></div>
             <div class="form-grp"><label for="f-email">Email address</label><input type="email" id="f-email" name="email" placeholder="john@example.com" required/></div>
@@ -109,13 +110,14 @@
           <div class="form-grp"><label for="f-msg">Tell us about your project</label>
             <textarea id="f-msg" name="message" placeholder="Describe what you need built, the problem it solves, and any requirements or deadlines..." required></textarea>
           </div>
-          <button class="btn primary form-submit" onclick="handleForm()">Send message →</button>
+          <button type="submit" class="btn primary form-submit">Send message →</button>
+          <p class="form-note" id="ferror" role="alert" style="display:none;color:#ff8f8f;margin-top:.6rem"></p>
           <p class="form-note">No spam. No sales calls. Just an honest conversation about your project.</p>
-        </div>
+        </form>
         <div class="form-success" id="fsuccess">
           <div style="font-size:2.5rem;margin-bottom:.9rem"><img class="success-icon" src="assets/icons/check.svg" alt="" loading="lazy"></div>
-          <h3>Email prepared</h3>
-          <p style="margin-top:.5rem">Your email app should open with a prepared message. Please press send there so we receive it.</p>
+          <h3>Message sent</h3>
+          <p style="margin-top:.5rem">Thanks — your enquiry has reached us at hello@creovateglobal.com. We'll reply within 24 hours, usually sooner.</p>
         </div>
       </div>
     </div>
