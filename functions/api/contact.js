@@ -65,6 +65,36 @@ export async function onRequestPost(context) {
     if (!res.ok) {
       return json({ ok: false, error: 'Could not send right now. Please try again shortly.' }, 502);
     }
+
+    // Best-effort confirmation email to the enquirer (never fails the request)
+    try {
+      const cHtml =
+        `<p>Hi ${esc(name.split(' ')[0] || name)},</p>` +
+        `<p>Thanks for reaching out to Creovate Global. We've received your enquiry about <strong>${esc(service)}</strong> and will reply within 24 hours — usually sooner.</p>` +
+        `<p>For reference, here's what you sent:</p>` +
+        `<p style="white-space:pre-wrap;color:#555">${esc(message)}</p>` +
+        `<p>— Creovate Global<br>hello@creovateglobal.com</p>`;
+      const cText =
+        `Hi ${name.split(' ')[0] || name},\n\n` +
+        `Thanks for reaching out to Creovate Global. We've received your enquiry about ${service} and will reply within 24 hours — usually sooner.\n\n` +
+        `For reference, here's what you sent:\n${message}\n\n— Creovate Global\nhello@creovateglobal.com`;
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: 'Creovate Global <noreply@creovateglobal.com>',
+          to: [email],
+          reply_to: 'hello@creovateglobal.com',
+          subject: 'We’ve received your enquiry — Creovate Global',
+          html: cHtml,
+          text: cText
+        })
+      });
+    } catch (e) { /* confirmation is non-critical */ }
+
     return json({ ok: true });
   } catch (err) {
     return json({ ok: false, error: 'Something went wrong. Please try again.' }, 500);
