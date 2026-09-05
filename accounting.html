@@ -55,7 +55,7 @@
     <h1 class="sr sr-d1">Make the work <em style="font-style:italic;color:var(--a1)">between your accounting systems</em> work better.</h1>
     <p class="lead sr sr-d2">You may already have good software — Xero, QuickBooks, Dext, your practice-management tools. The friction is often in what happens <em>between</em> them: onboarding, handoffs, approvals and the administration that falls through the gaps. Creovate improves the workflow around the systems you already use.</p>
     <div class="hero-actions sr sr-d3" style="margin-top:1.8rem">
-      <a href="/contact" class="btn primary">Book a Practice Workflow Review →</a>
+      <a href="#review" class="btn primary">Book a Practice Workflow Review →</a>
       <a href="#how-we-work" class="btn outline">See how we work</a>
     </div>
   </div>
@@ -117,16 +117,38 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section>
+<!-- REVIEW FORM -->
+<section id="review">
   <div class="container">
-    <div class="cta-wrap sr">
-      <div class="eyebrow" style="justify-content:center">Practice workflow</div>
-      <h2>Book a Practice <em>Workflow Review.</em></h2>
-      <p>A focused conversation about where your practice loses time between systems — and a practical view of what could change. No obligation, and no assumption that you have a problem until we've looked.</p>
-      <div class="cta-actions">
-        <a href="/contact" class="btn primary">Book a Practice Workflow Review →</a>
-        <a href="/portfolio" class="btn outline">See our work</a>
+    <div class="form-card sr" style="max-width:720px;margin:0 auto">
+      <div class="eyebrow" style="margin-bottom:.5rem">Practice workflow</div>
+      <h3 style="font-size:1.6rem;margin-bottom:.6rem">Book a Practice Workflow Review</h3>
+      <p style="margin-bottom:1.6rem;color:var(--muted)">A focused conversation about where work gets stuck between people, systems and processes in your practice. We'll identify the highest-value friction points — and whether anything is worth changing.</p>
+      <form class="js-cform" method="post" action="/api/contact" novalidate>
+        <input type="hidden" name="type" value="Practice Workflow Review"/>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none"/>
+        <div class="form-row">
+          <div class="form-grp"><label for="a-name">Your name</label><input id="a-name" type="text" name="name" required/></div>
+          <div class="form-grp"><label for="a-firm">Firm</label><input id="a-firm" type="text" name="firm" required/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-grp"><label for="a-email">Work email</label><input id="a-email" type="email" name="email" required/></div>
+          <div class="form-grp"><label for="a-role">Role / position</label><input id="a-role" type="text" name="role"/></div>
+        </div>
+        <div class="form-grp"><label for="a-team">Approximate team size</label><input id="a-team" type="text" name="team_size"/></div>
+        <div class="form-grp"><label for="a-software">Practice software currently used <span style="color:var(--fog);font-weight:400">(optional)</span></label><textarea id="a-software" name="software" style="min-height:80px" placeholder="e.g. Xero, QuickBooks, Dext, practice-management tool"></textarea></div>
+        <div class="form-grp"><label for="a-friction">Where does workflow friction occur? <span style="color:var(--fog);font-weight:400">(optional)</span></label><textarea id="a-friction" name="friction" style="min-height:80px"></textarea></div>
+        <div class="form-grp"><label for="a-bottleneck">Biggest administrative bottleneck <span style="color:var(--fog);font-weight:400">(optional)</span></label><textarea id="a-bottleneck" name="bottleneck" style="min-height:80px"></textarea></div>
+        <div class="form-grp"><label for="a-contact">Preferred contact method</label><select id="a-contact" name="contact_method"><option value="" disabled selected>Choose…</option><option>Email</option><option>Phone call</option><option>Video call</option></select></div>
+        <label class="form-consent" style="display:flex;gap:.55rem;align-items:flex-start;font-size:.78rem;color:var(--mist);margin:.2rem 0 1rem;cursor:pointer"><input type="checkbox" name="consent" required style="margin-top:.15rem;flex-shrink:0"/><span>I agree that Creovate Global may use my details to respond to this request, in line with the <a href="/privacy" style="color:var(--green);text-decoration:underline">privacy policy</a>.</span></label>
+        <button type="submit" class="btn primary form-submit">Book my review →</button>
+        <p class="form-note form-error" role="alert" style="display:none;color:#ff8f8f;margin-top:.6rem"></p>
+        <p class="form-note">No budget questions — just an honest look at your workflow.</p>
+      </form>
+      <div class="form-success">
+        <div style="font-size:2.5rem;margin-bottom:.9rem"><img class="success-icon" src="assets/icons/check.svg" alt="" loading="lazy"></div>
+        <h3>Review requested</h3>
+        <p style="margin-top:.5rem">Thanks — your Practice Workflow Review request has reached us at hello@creovateglobal.com. We'll reply within 24 hours to arrange a time.</p>
       </div>
     </div>
   </div>

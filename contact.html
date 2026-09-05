@@ -94,8 +94,9 @@
       <div class="form-card sr sr-d2">
         <h3>Tell us about your project</h3>
         <p>Fill in the form and we'll get back to you with a clear, honest response.</p>
-        <form id="cform" method="post" action="/api/contact" novalidate>
-          <input type="text" name="company" id="f-company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none"/>
+        <form id="cform" class="js-cform" method="post" action="/api/contact" novalidate>
+          <input type="hidden" name="type" value="General Project Enquiry"/>
+          <input type="text" name="website" id="f-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none"/>
           <div class="form-row">
             <div class="form-grp"><label for="f-name">Your name</label><input type="text" id="f-name" name="name" placeholder="John Adeyemi" required/></div>
             <div class="form-grp"><label for="f-email">Email address</label><input type="email" id="f-email" name="email" placeholder="john@example.com" required/></div>
@@ -120,7 +121,7 @@
           </div>
           <label class="form-consent" style="display:flex;gap:.55rem;align-items:flex-start;font-size:.78rem;color:var(--mist);margin:.2rem 0 1rem;cursor:pointer"><input type="checkbox" id="f-consent" name="consent" required style="margin-top:.15rem;flex-shrink:0"/><span>I agree that Creovate Global may use my details to respond to this enquiry, in line with the <a href="/privacy" style="color:var(--green);text-decoration:underline">privacy policy</a>.</span></label>
           <button type="submit" class="btn primary form-submit">Send message →</button>
-          <p class="form-note" id="ferror" role="alert" style="display:none;color:#ff8f8f;margin-top:.6rem"></p>
+          <p class="form-note form-error" id="ferror" role="alert" style="display:none;color:#ff8f8f;margin-top:.6rem"></p>
           <p class="form-note">No spam. No sales calls. Just an honest conversation about your project.</p>
           <p class="form-note">Your details are used only to reply to your enquiry — never sold or shared. See our <a href="/privacy" style="color:var(--green);text-decoration:underline">privacy policy</a>.</p>
         </form>
@@ -145,7 +146,6 @@
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What's your payment structure?<span class="faq-ico">+</span></div><div class="faq-a">We typically work on a 50% upfront / 50% on delivery basis for smaller projects. For larger builds, milestone-based payments. We accept bank transfer (UK or Nigeria), Wise, and PayPal.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you offer ongoing support after delivery?<span class="faq-ico">+</span></div><div class="faq-a">Yes. We offer optional monthly retainer support for maintenance, updates, and feature additions. Rates from £80/month depending on scope.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">I have an idea but I'm not sure what to build yet. Can you help?<span class="faq-ico">+</span></div><div class="faq-a">Absolutely. Product strategy and scoping is something we genuinely enjoy. Send us your idea — we'll help you think through what to build, what order to build it in, and what's realistic for your budget and timeline.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I use creovateglobal.com as proof of my business for bank onboarding?<span class="faq-ico">+</span></div><div class="faq-a">Yes — our website is a credible business presence that can serve as verification for Tide, Stripe, PayPal, and similar platforms. It shows live products (InvoKit Pro), a physical UK base, a professional contact email, and a clear service offering.</div></div>
     </div>
   </div>
 </section>

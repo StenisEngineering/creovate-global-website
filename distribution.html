@@ -55,7 +55,7 @@
     <h1 class="sr sr-d1">Make your distribution operation <em style="font-style:italic;color:var(--a1)">easier to see, manage and improve.</em></h1>
     <p class="lead sr sr-d2">Creovate works with growing distributors and wholesalers to investigate operational friction across sales, inventory, warehouses, branches, field teams, dispatch, customer orders and management reporting — then connect what exists and build only what's missing.</p>
     <div class="hero-actions sr sr-d3" style="margin-top:1.8rem">
-      <a href="/contact" class="btn primary">Book a Distribution Operations Review →</a>
+      <a href="#review" class="btn primary">Book a Distribution Operations Review →</a>
       <a href="#how-we-work" class="btn outline">See how we work</a>
     </div>
   </div>
@@ -106,16 +106,38 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section style="background:var(--bg2)">
+<!-- REVIEW FORM -->
+<section id="review" style="background:var(--bg2)">
   <div class="container">
-    <div class="cta-wrap sr">
-      <div class="eyebrow" style="justify-content:center">Distribution operations</div>
-      <h2>Book a Distribution <em>Operations Review.</em></h2>
-      <p>A structured conversation about where your operation loses visibility — and a practical view of what could change. No obligation, and no assumption that you have a problem until we've looked.</p>
-      <div class="cta-actions">
-        <a href="/contact" class="btn primary">Book a Distribution Operations Review →</a>
-        <a href="/portfolio" class="btn outline">See our work</a>
+    <div class="form-card sr" style="max-width:720px;margin:0 auto">
+      <div class="eyebrow" style="margin-bottom:.5rem">Distribution operations</div>
+      <h3 style="font-size:1.6rem;margin-bottom:.6rem">Book a Distribution Operations Review</h3>
+      <p style="margin-bottom:1.6rem;color:var(--muted)">A focused conversation about how information, orders, stock, field activity and reporting currently move through your operation. We'll identify where visibility or coordination may be breaking down — and whether there's anything worth fixing.</p>
+      <form class="js-cform" method="post" action="/api/contact" novalidate>
+        <input type="hidden" name="type" value="Distribution Operations Review"/>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none"/>
+        <div class="form-row">
+          <div class="form-grp"><label for="d-name">Your name</label><input id="d-name" type="text" name="name" required/></div>
+          <div class="form-grp"><label for="d-company">Company</label><input id="d-company" type="text" name="company" required/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-grp"><label for="d-email">Work email</label><input id="d-email" type="email" name="email" required/></div>
+          <div class="form-grp"><label for="d-role">Role / position</label><input id="d-role" type="text" name="role"/></div>
+        </div>
+        <div class="form-grp"><label for="d-branches">Number of branches or operating locations</label><input id="d-branches" type="text" name="branches"/></div>
+        <div class="form-grp"><label for="d-systems">What systems do you currently use? <span style="color:var(--fog);font-weight:400">(optional)</span></label><textarea id="d-systems" name="systems" style="min-height:80px"></textarea></div>
+        <div class="form-grp"><label for="d-friction">Where do you experience the most operational friction? <span style="color:var(--fog);font-weight:400">(optional)</span></label><textarea id="d-friction" name="friction" style="min-height:80px"></textarea></div>
+        <div class="form-grp"><label for="d-ops">Briefly describe how sales, stock and reporting currently work <span style="color:var(--fog);font-weight:400">(optional)</span></label><textarea id="d-ops" name="operations" style="min-height:80px"></textarea></div>
+        <div class="form-grp"><label for="d-contact">Preferred contact method</label><select id="d-contact" name="contact_method"><option value="" disabled selected>Choose…</option><option>Email</option><option>Phone call</option><option>WhatsApp</option></select></div>
+        <label class="form-consent" style="display:flex;gap:.55rem;align-items:flex-start;font-size:.78rem;color:var(--mist);margin:.2rem 0 1rem;cursor:pointer"><input type="checkbox" name="consent" required style="margin-top:.15rem;flex-shrink:0"/><span>I agree that Creovate Global may use my details to respond to this request, in line with the <a href="/privacy" style="color:var(--green);text-decoration:underline">privacy policy</a>.</span></label>
+        <button type="submit" class="btn primary form-submit">Book my review →</button>
+        <p class="form-note form-error" role="alert" style="display:none;color:#ff8f8f;margin-top:.6rem"></p>
+        <p class="form-note">No budget questions — just an honest look at your operation.</p>
+      </form>
+      <div class="form-success">
+        <div style="font-size:2.5rem;margin-bottom:.9rem"><img class="success-icon" src="assets/icons/check.svg" alt="" loading="lazy"></div>
+        <h3>Review requested</h3>
+        <p style="margin-top:.5rem">Thanks — your Distribution Operations Review request has reached us at hello@creovateglobal.com. We'll reply within 24 hours to arrange a time.</p>
       </div>
     </div>
   </div>

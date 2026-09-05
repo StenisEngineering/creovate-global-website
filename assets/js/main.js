@@ -49,29 +49,24 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-// ── CONTACT FORM: posts to Cloudflare Pages Function (/api/contact) ──
-const cform = document.getElementById('cform');
-if (cform) {
-  cform.addEventListener('submit', async (e) => {
+// ── FORMS: general enquiry + sector reviews all post to /api/contact ──
+document.querySelectorAll('form.js-cform').forEach((form) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const errEl = document.getElementById('ferror');
+    const errEl = form.querySelector('.form-error');
     if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
 
     // Honeypot — real users never fill this hidden field
-    if (document.getElementById('f-company')?.value) return;
+    if (form.querySelector('[name="website"]')?.value) return;
 
-    if (!cform.checkValidity()) { cform.reportValidity(); return; }
+    if (!form.checkValidity()) { form.reportValidity(); return; }
 
-    const payload = {
-      name: document.getElementById('f-name')?.value.trim(),
-      email: document.getElementById('f-email')?.value.trim(),
-      service: document.getElementById('f-svc')?.value,
-      budget: document.getElementById('f-budget')?.value || 'Not specified',
-      message: document.getElementById('f-msg')?.value.trim(),
-      company: document.getElementById('f-company')?.value || ''
-    };
+    // Serialise every named field in DOM order
+    const payload = {};
+    new FormData(form).forEach((v, k) => { payload[k] = typeof v === 'string' ? v.trim() : v; });
+    payload.consent = form.querySelector('[name="consent"]')?.checked ? 'yes' : '';
 
-    const btn = cform.querySelector('.form-submit');
+    const btn = form.querySelector('.form-submit');
     const label = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
@@ -83,8 +78,9 @@ if (cform) {
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.ok) {
-        cform.style.display = 'none';
-        document.getElementById('fsuccess')?.classList.add('show');
+        form.style.display = 'none';
+        const succ = form.nextElementSibling;
+        if (succ && succ.classList.contains('form-success')) succ.classList.add('show');
         return;
       }
       throw new Error(data.error || 'Message could not be sent.');
@@ -97,7 +93,7 @@ if (cform) {
       if (btn) { btn.disabled = false; btn.textContent = label; }
     }
   });
-}
+});
 
 // ── FOOTER YEAR ──
 const yr = document.getElementById('year');
