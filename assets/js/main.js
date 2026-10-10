@@ -66,6 +66,15 @@ document.querySelectorAll('form.js-cform').forEach((form) => {
     new FormData(form).forEach((v, k) => { payload[k] = typeof v === 'string' ? v.trim() : v; });
     payload.consent = form.querySelector('[name="consent"]')?.checked ? 'yes' : '';
 
+    // One submission ID per distinct set of answers: a retry after a network
+    // error reuses it (no duplicate lead); changing an answer starts a new one.
+    const answers = JSON.stringify(payload);
+    if (form.dataset.answers !== answers || !form.dataset.submissionId) {
+      form.dataset.answers = answers;
+      form.dataset.submissionId = (self.crypto && crypto.randomUUID) ? crypto.randomUUID() : '';
+    }
+    if (form.dataset.submissionId) payload.submission_id = form.dataset.submissionId;
+
     const btn = form.querySelector('.form-submit');
     const label = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
