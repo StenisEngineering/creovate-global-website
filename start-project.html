@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Start a Project — Creovate Global</title>
+  <meta name="description" content="Start a project with Creovate Global. Share your brief — goals, timeline and scope — and we'll shape a practical plan and quote. We reply within 24 hours."/>
+  <link rel="canonical" href="https://creovateglobal.com/start-project"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://creovateglobal.com/start-project"/>
+  <meta property="og:site_name" content="Creovate Global"/>
+  <meta property="og:title" content="Start a Project — Creovate Global"/>
+  <meta property="og:description" content="Share your brief — goals, timeline and scope — and we'll shape a practical plan and quote."/>
+  <meta property="og:image" content="https://creovateglobal.com/assets/social/og-cover.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Start a Project — Creovate Global"/>
+  <meta name="twitter:description" content="Share your brief — goals, timeline and scope — and we'll shape a practical plan and quote."/>
+  <meta name="twitter:image" content="https://creovateglobal.com/assets/social/og-cover.png"/>
+  <meta name="theme-color" content="#0b1f3a"/>
+  <link rel="icon" href="assets/favicon/favicon.ico" sizes="any"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png"/>
+  <link rel="manifest" href="assets/favicon/site.webmanifest"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a class="brand" href="/"><img class="brand-logo" src="assets/images/creovate-logo.png" alt="Creovate Global logo" loading="eager"><span>Creovate Global</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/portfolio">Work</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/review" class="nav-cta">Book a Workflow Review</a></li>
+  </ul>
+  <button class="mobile-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<nav class="nav-drawer" id="navDrawer">
+  <a href="/">Home</a>
+  <a href="/services">Services</a>
+  <a href="/portfolio">Work</a>
+  <a href="/products">Products</a>
+  <a href="/about">About</a>
+  <a href="/review" class="d-cta">Book a Workflow Review →</a>
+</nav>
+
+<main class="page-hero">
+  <div class="page-hero-inner">
+    <div class="eyebrow sr">Start a project</div>
+    <h1 class="sr sr-d1">Tell us what you want <em style="font-style:italic;color:var(--a1)">to build.</em></h1>
+    <p class="lead sr sr-d2">Share the brief — the goal, the users, the timeline. We'll come back with a clear scope, a practical plan and honest advice on what to build (and what not to). No obligation.</p>
+  </div>
+</main>
+
+<section>
+  <div class="container">
+    <div class="form-card sr" style="max-width:720px;margin:0 auto">
+      <h3 style="font-size:1.6rem;margin-bottom:.6rem">Start a project</h3>
+      <p style="margin-bottom:1.6rem;color:var(--muted)">Best when you know roughly what you want built. Just need a price for a defined scope? <a href="/quote" style="color:var(--green);text-decoration:underline">Get a quote</a>. Still shaping the problem? <a href="/review" style="color:var(--green);text-decoration:underline">Book a workflow review</a>.</p>
+      <form class="js-cform" method="post" action="/api/contact" novalidate>
+        <input type="hidden" name="type" value="Project Brief"/>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none"/>
+        <div class="form-row">
+          <div class="form-grp"><label for="p-name">Your name</label><input id="p-name" type="text" name="name" required/></div>
+          <div class="form-grp"><label for="p-email">Email address</label><input id="p-email" type="email" name="email" required/></div>
+        </div>
+        <div class="form-grp"><label for="p-company">Company <span style="color:var(--fog);font-weight:400">(optional)</span></label><input id="p-company" type="text" name="company"/></div>
+        <div class="form-grp"><label for="p-type">Project type</label>
+          <select id="p-type" name="service" required><option value="" disabled selected>Choose a project type…</option>
+            <option>Website or landing page</option><option>Web application</option><option>PWA / offline-first app</option>
+            <option>Business system / internal tool</option><option>Workflow automation</option>
+            <option>Product strategy or discovery</option><option>Something else</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-grp"><label for="p-timeline">Timeline <span style="color:var(--fog);font-weight:400">(optional)</span></label>
+            <select id="p-timeline" name="timeline"><option value="" disabled selected>When do you need it?</option>
+              <option>As soon as possible</option><option>Within 1–3 months</option><option>3–6 months</option><option>Just exploring for now</option>
+            </select>
+          </div>
+          <div class="form-grp"><label for="p-budget">Rough budget <span style="color:var(--fog);font-weight:400">(optional)</span></label>
+            <select id="p-budget" name="budget"><option value="" disabled selected>Select a range…</option>
+              <option>Under £250 / ₦300k</option><option>£250–£800 / ₦300k–₦1.2M</option>
+              <option>£800–£2,000 / ₦1.2M–₦3M</option><option>£2,000+ / ₦3M+</option>
+              <option>Not sure yet — happy to discuss</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grp"><label for="p-msg">Tell us about the project</label>
+          <textarea id="p-msg" name="message" placeholder="What are you trying to achieve, who is it for, and what does success look like?" required></textarea>
+        </div>
+        <label class="form-consent" style="display:flex;gap:.55rem;align-items:flex-start;font-size:.78rem;color:var(--mist);margin:.2rem 0 1rem;cursor:pointer"><input type="checkbox" name="consent" required style="margin-top:.15rem;flex-shrink:0"/><span>I agree that Creovate Global may use my details to respond to this enquiry, in line with the <a href="/privacy" style="color:var(--green);text-decoration:underline">privacy policy</a>.</span></label>
+        <button type="submit" class="btn primary form-submit">Send project brief →</button>
+        <p class="form-note form-error" role="alert" style="display:none;color:#ff8f8f;margin-top:.6rem"></p>
+        <p class="form-note">No spam, no sales calls — just an honest conversation about your project.</p>
+      </form>
+      <div class="form-success">
+        <div style="font-size:2.5rem;margin-bottom:.9rem"><img class="success-icon" src="assets/icons/check.svg" alt="" loading="lazy"></div>
+        <h3>Project brief sent</h3>
+        <p style="margin-top:.5rem">Thanks — your project brief has reached us at hello@creovateglobal.com. We'll reply within 24 hours to talk through next steps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div><div class="brand"><img class="brand-logo" src="assets/images/creovate-logo.png" alt="Creovate Global logo" loading="eager"><span class="foot-brand-name">Creovate Global</span></div><p class="foot-desc">We help growing businesses replace fragmented, manual operations with simple, connected digital systems. UK &amp; Africa · registered in both.</p></div>
+      <div class="foot-col"><h4>Company</h4><ul><li><a href="/about">About us</a></li><li><a href="/services">Services</a></li><li><a href="/portfolio">Portfolio</a></li></ul></div>
+      <div class="foot-col"><h4>Get started</h4><ul><li><a href="/review">Book a Workflow Review</a></li><li><a href="/quote">Get a free quote</a></li><li><a href="/start-project">Start a project</a></li><li><a href="/contact">Start a conversation</a></li></ul></div>
+      <div class="foot-col"><h4>Contact</h4><ul><li><a href="mailto:hello@creovateglobal.com">hello@creovateglobal.com</a></li></ul></div>
+    </div>
+    <div class="foot-legal" style="text-align:center;font-size:.72rem;color:var(--fog);margin-top:1rem;line-height:1.6">Creovate Global Ltd · UK company no. 17337012 (England &amp; Wales) · Nigeria CAC no. 9174160 · Registered office: 61 Bridge Street, Kington, HR5 3DJ, United Kingdom</div>
+    <div class="foot-bottom"><span>© <span id="year"></span> <span class="foot-green">Creovate Global Ltd.</span> · <a href="/privacy" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacy</a></span><span>Nigeria-founded · Sunderland, UK</span></div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
