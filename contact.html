@@ -2,8 +2,8 @@
 <html lang="en">
 <head><!-- V5.16 Typography Exact V5.11 Scale Pass: V5.11 font style/size restored, V5.14 readability retained -->
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Contact Creovate Global — Start Your Project &amp; Get a Quote</title>
-  <meta name="description" content="Contact Creovate Global for web, app, PWA, business-system or branding projects. Clear, honest quotes for SMEs in Nigeria and the UK — we reply within 24 hours."/>
+  <title>Start a Conversation — Creovate Global</title>
+  <meta name="description" content="Start a conversation with Creovate Global. A simple, no-pressure way to ask a question or tell us what's on your mind — we reply within 24 hours."/>
   <meta name="creovate-version" content="V5.16 Typography Exact V5.11 Scale Pass"/>
   <link rel="canonical" href="https://creovateglobal.com/contact"/>
   <meta property="og:type" content="website"/>
@@ -38,7 +38,7 @@
     <li><a href="/portfolio">Work</a></li>
     <li><a href="/products">Products</a></li>
     <li><a href="/about">About</a></li>
-    <li><a href="/contact" class="nav-cta active">Book a Workflow Review</a></li>
+    <li><a href="/review" class="nav-cta">Book a Workflow Review</a></li>
   </ul>
   <button class="mobile-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
@@ -48,14 +48,14 @@
   <a href="/portfolio">Work</a>
   <a href="/products">Products</a>
   <a href="/about">About</a>
-  <a href="/contact" class="d-cta">Book a Workflow Review →</a>
+  <a href="/review" class="d-cta">Book a Workflow Review →</a>
 </nav>
 
 <main class="page-hero">
   <div class="page-hero-inner">
-    <div class="eyebrow sr">Book a workflow review</div>
-    <h1 class="sr sr-d1">Tell us where <em style="font-style:italic;color:var(--a1)">work gets stuck.</em></h1>
-    <p class="lead sr sr-d2">Book a workflow review, or tell us about a project. We'll help you understand what should change — and what technology, if any, is needed to make it happen. No obligation.</p>
+    <div class="eyebrow sr">Start a conversation</div>
+    <h1 class="sr sr-d1">Say hello, or ask us <em style="font-style:italic;color:var(--a1)">anything.</em></h1>
+    <p class="lead sr sr-d2">A simple, no-pressure way to get in touch. Ask a question or tell us what's on your mind — no project details or budget required. Ready to go further? <a href="/review" style="color:var(--a1);text-decoration:underline">Book a workflow review</a>, <a href="/quote" style="color:var(--a1);text-decoration:underline">get a quote</a> or <a href="/start-project" style="color:var(--a1);text-decoration:underline">start a project</a>.</p>
   </div>
 </main>
 
@@ -72,7 +72,7 @@
           </a>
           <a href="#cform" class="c-method">
             <div class="c-ico" style="background:rgba(212,175,55,.14)"><img src="assets/icons/calendar.svg" alt="" loading="lazy"></div>
-            <div><div class="c-label">Request a consultation</div><div class="c-val">Tell us about your project</div><div class="c-note">Fill in the form and we'll arrange a call</div></div>
+            <div><div class="c-label">Send a message</div><div class="c-val">Ask us anything</div><div class="c-note">Fill in the form and we'll reply by email</div></div>
           </a>
           <div class="c-method">
             <div class="c-ico" style="background:rgba(251,191,36,.12)"><img src="assets/icons/location.svg" alt="" loading="lazy"></div>
@@ -92,32 +92,24 @@
       </div>
       <!-- Right: form -->
       <div class="form-card sr sr-d2">
-        <h3>Tell us about your project</h3>
-        <p>Fill in the form and we'll get back to you with a clear, honest response.</p>
+        <h3>Send us a message</h3>
+        <p>Ask a question or tell us what's on your mind. No project details or budget needed.</p>
         <form id="cform" class="js-cform" method="post" action="/api/contact" novalidate>
-          <input type="hidden" name="type" value="General Project Enquiry"/>
+          <input type="hidden" name="type" value="General Enquiry"/>
           <input type="text" name="website" id="f-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none"/>
           <div class="form-row">
             <div class="form-grp"><label for="f-name">Your name</label><input type="text" id="f-name" name="name" placeholder="John Adeyemi" required/></div>
             <div class="form-grp"><label for="f-email">Email address</label><input type="email" id="f-email" name="email" placeholder="john@example.com" required/></div>
           </div>
-          <div class="form-grp"><label for="f-svc">What do you need?</label>
-            <select id="f-svc" name="service" required><option value="" disabled selected>What can we help with?</option>
-              <option>Distribution Operations Review</option><option>Practice Workflow Review</option>
-              <option>Workflow / operations problem</option><option>Business system / internal tool</option>
-              <option>Web or app build</option><option>Product strategy or discovery</option>
-              <option>Brand / print design (add-on)</option><option>Something else</option>
+          <div class="form-grp"><label for="f-svc">What's this about? <span style="color:var(--fog);font-weight:400">(optional)</span></label>
+            <select id="f-svc" name="service"><option value="" disabled selected>Choose a topic…</option>
+              <option>General question</option><option>Workflow / operations problem</option>
+              <option>A project or quote</option><option>Our products</option>
+              <option>Partnership or press</option><option>Something else</option>
             </select>
           </div>
-          <div class="form-grp"><label for="f-budget">Rough budget range</label>
-            <select id="f-budget" name="budget"><option value="" disabled selected>Select a range...</option>
-              <option>Under £250 / ₦300k</option><option>£250–£800 / ₦300k–₦1.2M</option>
-              <option>£800–£2,000 / ₦1.2M–₦3M</option><option>£2,000+ / ₦3M+</option>
-              <option>Not sure yet — happy to discuss</option>
-            </select>
-          </div>
-          <div class="form-grp"><label for="f-msg">Tell us about your project</label>
-            <textarea id="f-msg" name="message" placeholder="Describe what you need built, the problem it solves, and any requirements or deadlines..." required></textarea>
+          <div class="form-grp"><label for="f-msg">Your message</label>
+            <textarea id="f-msg" name="message" placeholder="How can we help?" required></textarea>
           </div>
           <label class="form-consent" style="display:flex;gap:.55rem;align-items:flex-start;font-size:.78rem;color:var(--mist);margin:.2rem 0 1rem;cursor:pointer"><input type="checkbox" id="f-consent" name="consent" required style="margin-top:.15rem;flex-shrink:0"/><span>I agree that Creovate Global may use my details to respond to this enquiry, in line with the <a href="/privacy" style="color:var(--green);text-decoration:underline">privacy policy</a>.</span></label>
           <button type="submit" class="btn primary form-submit">Send message →</button>
@@ -154,7 +146,7 @@
   <div><div class="brand"><img class="brand-logo" src="assets/images/creovate-logo.png" alt="Creovate Global logo" loading="eager"><span class="foot-brand-name">Creovate Global</span></div><p class="foot-desc">We help growing businesses replace fragmented, manual operations with simple, connected digital systems. UK &amp; Africa · registered in both.</p></div>
   <div class="foot-col"><h4>Products</h4><ul><li><a href="https://app.getinvokitpro.com" target="_blank" rel="noopener">InvoKit Pro ↗</a></li><li><a href="/products">AfroCrave Kitchen</a></li><li><a href="/products">Choma Share</a></li><li><a href="/products">Afridaxel</a></li><li><a href="/products">Eroja Ounje</a></li><li><a href="/products">Telina</a></li></ul></div>
   <div class="foot-col"><h4>Company</h4><ul><li><a href="/about">About us</a></li><li><a href="/services">Services</a></li><li><a href="/portfolio">Portfolio</a></li></ul></div>
-  <div class="foot-col"><h4>Contact</h4><ul><li><a href="mailto:hello@creovateglobal.com">hello@creovateglobal.com</a></li><li><a href="/contact">Request a consultation</a></li></ul></div>
+  <div class="foot-col"><h4>Get started</h4><ul><li><a href="/review">Book a Workflow Review</a></li><li><a href="/quote">Get a free quote</a></li><li><a href="/start-project">Start a project</a></li><li><a href="mailto:hello@creovateglobal.com">hello@creovateglobal.com</a></li></ul></div>
 </div><div class="foot-legal" style="text-align:center;font-size:.72rem;color:var(--fog);margin-top:1rem;line-height:1.6">Creovate Global Ltd · UK company no. 17337012 (England &amp; Wales) · Nigeria CAC no. 9174160 · Registered office: 61 Bridge Street, Kington, HR5 3DJ, United Kingdom</div>
     <div class="foot-bottom"><span>© <span id="year"></span> <span class="foot-green">Creovate Global Ltd.</span> · <a href="/privacy" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacy</a></span><span>Nigeria-founded · Sunderland, UK · <span class="foot-green">Built with precision.</span></span></div></div></footer>
 <script src="assets/js/main.js"></script>
