@@ -70,8 +70,9 @@ export async function onRequestPost(context) {
     const get = (k) => (fields.find(([key]) => key === k) || [])[1];
 
     // ── 2. Sales OS (canonical CRM) ──
+    const salesConfigured = Boolean(env.SALES_INTAKE_URL && env.SALES_INTAKE_KEY_ID && env.SALES_INTAKE_SECRET);
     let sales = { recorded: false, reason: 'not configured' };
-    if (env.SALES_INTAKE_URL && env.SALES_INTAKE_KEY_ID && env.SALES_INTAKE_SECRET) {
+    if (salesConfigured) {
       const payload = {
         schema_version: 1, enquiry_type: type, name: name.slice(0, 200), email: email.toLowerCase(),
         consent: true, fields: Object.fromEntries(fields.filter(([k]) => !CORE.has(k)).slice(0, MAX_FIELDS))
@@ -91,15 +92,16 @@ export async function onRequestPost(context) {
       rowsHtml += `<p style="margin:0 0 8px"><strong>${esc(label(k))}:</strong> ${esc(val).replace(/\n/g, '<br>')}</p>`;
       rowsText += `${label(k)}: ${val}\n`;
     }
-    const flag = sales.recorded ? '' : '[Not in Sales OS] ';
+    const missed = salesConfigured && !sales.recorded; // unconfigured = email-only, as before
+    const flag = missed ? '[Not in Sales OS] ' : '';
     const html =
       `<h2 style="margin:0 0 4px">${esc(type)}</h2>` +
       `<p style="margin:0 0 14px;color:#888">via creovateglobal.com</p>` +
-      (sales.recorded ? '' : `<p style="padding:8px;background:#fff3cd"><strong>Not recorded in Sales OS</strong> (${esc(sales.reason)}). Add it manually or replay with submission ID ${esc(submissionId)}.</p>`) +
+      (!missed ? '' : `<p style="padding:8px;background:#fff3cd"><strong>Not recorded in Sales OS</strong> (${esc(sales.reason)}). Add it manually or replay with submission ID ${esc(submissionId)}.</p>`) +
       rowsHtml +
       `<p style="margin-top:14px;color:#888;font-size:12px">Consent given · Submission type: ${esc(type)} · Submission ID: ${esc(submissionId)}</p>`;
     const text = `${type}\nvia creovateglobal.com\n\n${rowsText}\nConsent given\nSubmission ID: ${submissionId}` +
-      (sales.recorded ? '' : `\n\nNOT RECORDED IN SALES OS (${sales.reason}). Add it manually or replay with this submission ID.`);
+      (!missed ? '' : `\n\nNOT RECORDED IN SALES OS (${sales.reason}). Add it manually or replay with this submission ID.`);
 
     let emailed = false;
     try {
