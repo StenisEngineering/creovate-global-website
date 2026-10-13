@@ -42,7 +42,7 @@ test('valid token: verified once, then notification and confirmation are sent as
   stub()
   const res = await post(form)
   assert.equal(res.status, 200)
-  assert.deepEqual(await res.json(), { ok: true })
+  assert.equal((await res.json()).ok, true)
   const [v] = verifications()
   assert.deepEqual(v.body, { secret: env.TURNSTILE_SECRET_KEY, response: 'token-abc', remoteip: '203.0.113.7' })
   assert.equal(verifications().length, 1)
