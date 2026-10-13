@@ -887,6 +887,7 @@ img[src*="telina"]      { padding: 2px !important; object-fit: cover !important;
 .form-card > p { font-size: .86rem; color: var(--muted); margin-bottom: 1.7rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
 .form-grp { display: flex; flex-direction: column; gap: .42rem; margin-bottom: .95rem; }
+.form-grp[hidden] { display: none; }
 .form-grp label { font-family: var(--fb); font-size: .75rem; font-weight: 800; color: var(--ink); display: block; }
 .form-grp input, .form-grp select, .form-grp textarea {
   background: var(--cream); border: 1px solid var(--rim);

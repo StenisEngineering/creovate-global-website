@@ -13,7 +13,8 @@ const LABELS = {
   systems: 'Systems used', software: 'Practice software', friction: 'Friction points',
   operations: 'How it works now', bottleneck: 'Biggest bottleneck',
   industry: 'Industry / sector', timeline: 'Timeline',
-  contact_method: 'Preferred contact', service: 'Service', budget: 'Budget', message: 'Message'
+  contact_method: 'Preferred contact', service: 'Service', service_other: 'Service description',
+  budget: 'Budget', message: 'Message'
 };
 const label = (k) => LABELS[k] || k.replace(/_/g, ' ').replace(/^./, (m) => m.toUpperCase());
 

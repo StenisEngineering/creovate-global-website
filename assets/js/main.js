@@ -86,6 +86,21 @@ const resetTurnstile = (form) => {
   if (id !== undefined) window.turnstile.reset(id); // tokens are single-use
 };
 
+// ── "Something else" details: shown and required only for that choice ──
+document.querySelectorAll('[data-other-for]').forEach((grp) => {
+  const select = document.getElementById(grp.dataset.otherFor);
+  const input = grp.querySelector('input, textarea');
+  if (!select || !input) return;
+  const sync = () => {
+    const show = select.value === grp.dataset.otherValue;
+    grp.hidden = !show;
+    input.required = show;
+    if (!show) input.value = '';
+  };
+  select.addEventListener('change', sync);
+  sync(); // also covers a value restored by the browser
+});
+
 // ── FORMS: general enquiry + sector reviews all post to /api/contact ──
 contactForms.forEach((form) => {
   form.addEventListener('submit', async (e) => {

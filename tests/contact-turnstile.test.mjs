@@ -155,3 +155,63 @@ test('release guard: the production site key is set before merge', async (t) => 
   if (key === 'REPLACE_WITH_TURNSTILE_SITE_KEY') { t.todo('add the real Turnstile site key in assets/js/main.js'); return }
   assert.match(key, /^0x[0-9A-Za-z_-]{20,}$/, 'Turnstile site keys start with 0x')
 })
+
+// ── "Something else" service description ──
+test('service description is included in the notification email', async () => {
+  stub()
+  const res = await post({ ...form, type: 'Quote Request', service: 'Something else', service_other: 'Bespoke booking kiosk' })
+  assert.equal(res.status, 200)
+  const [notification, confirmation] = emails()
+  assert.match(notification.body.text, /Service: Something else\n/)
+  assert.match(notification.body.text, /Service description: Bespoke booking kiosk\n/)
+  assert.match(notification.body.html, /<strong>Service description:<\/strong> Bespoke booking kiosk/)
+  assert.doesNotMatch(confirmation.body.text, /Bespoke/, 'confirmation email unchanged')
+  assert.equal(verifications().length, 1, 'Turnstile still verified')
+})
+
+test('only the two service dropdowns get the description field, hidden and optional by default', async () => {
+  for (const [page, select] of [['quote', 'q-service'], ['start-project', 'p-type']]) {
+    const html = await readFile(new URL(`../${page}.html`, import.meta.url), 'utf8')
+    const groups = html.match(/<div class="form-grp" data-other-for="[^"]+"[^>]*>.*?<\/div>/g) || []
+    assert.equal(groups.length, 1, page)
+    const grp = groups[0]
+    assert.match(grp, new RegExp(`data-other-for="${select}"`), page)
+    assert.match(grp, /data-other-value="Something else"/, page)
+    assert.match(grp, / hidden>/, `${page}: hidden until chosen`)
+    assert.match(grp, /<label for="([^"]+)">Please describe the service you need<\/label><input id="\1" type="text" name="service_other"/, page)
+    assert.doesNotMatch(grp, /required/, `${page}: not required in markup`)
+    const dropdown = html.slice(html.indexOf(`<select id="${select}" name="service" required>`))
+    assert.match(dropdown.slice(0, dropdown.indexOf('</select>')), /<option>Something else<\/option>/, `${page}: trigger option exists`)
+  }
+  for (const page of ['contact', 'review', 'distribution', 'accounting'])
+    assert.doesNotMatch(await readFile(new URL(`../${page}.html`, import.meta.url), 'utf8'), /data-other-for/, page)
+  assert.match(await readFile(new URL('../assets/css/styles.css', import.meta.url), 'utf8'), /\.form-grp\[hidden\] \{ display: none; \}/)
+})
+
+test('conditional behaviour: shown and required only for "Something else", cleared otherwise', async () => {
+  // Run the real block from main.js against a minimal page model.
+  const main = await readFile(new URL('../assets/js/main.js', import.meta.url), 'utf8')
+  const start = main.indexOf('// ── "Something else" details')
+  const block = main.slice(start, main.indexOf('// ── FORMS:', start))
+  const select = { value: '', listeners: [], addEventListener(type, fn) { if (type === 'change') this.listeners.push(fn) } }
+  const input = { value: '', required: false }
+  const grp = { hidden: true, dataset: { otherFor: 'q-service', otherValue: 'Something else' }, querySelector: () => input }
+  const document = { querySelectorAll: () => [grp], getElementById: (id) => (id === 'q-service' ? select : null) }
+  new Function('document', block)(document)
+  const choose = (v) => { select.value = v; select.listeners.forEach((fn) => fn()) }
+
+  assert.deepEqual([grp.hidden, input.required], [true, false], 'hidden and optional on load')
+  choose('Web application')
+  assert.deepEqual([grp.hidden, input.required], [true, false])
+  choose('Something else')
+  assert.deepEqual([grp.hidden, input.required], [false, true], 'shown and required')
+  input.value = 'Bespoke booking kiosk'
+  choose('Workflow automation')
+  assert.deepEqual([grp.hidden, input.required, input.value], [true, false, ''], 'hidden, optional and cleared')
+  choose('Something else')
+  assert.equal(input.value, '', 'old text does not come back')
+  // A value restored by the browser before the script runs is honoured on load.
+  select.value = 'Something else'; grp.hidden = true; input.required = false
+  new Function('document', block)(document)
+  assert.deepEqual([grp.hidden, input.required], [false, true])
+})
