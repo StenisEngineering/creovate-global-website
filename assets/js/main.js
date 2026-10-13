@@ -53,7 +53,7 @@ function toggleFaq(el) {
 // The site key is public. Local development uses Cloudflare's always-pass test key.
 const TURNSTILE_SITE_KEY = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
   ? '1x00000000000000000000AA'
-  : 'REPLACE_WITH_TURNSTILE_SITE_KEY';
+  : '0x4AAAAAAFWBtDP1V2o-3Pps';
 const turnstileWidgets = new Map(); // form → widget ID
 const turnstileFailed = new Set(); // forms whose widget could not run
 let turnstileScriptFailed = false;
