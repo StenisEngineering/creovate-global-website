@@ -49,8 +49,60 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
+// ── TURNSTILE: bot check on every form; the token is verified in /api/contact ──
+// The site key is public. Local development uses Cloudflare's always-pass test key.
+const TURNSTILE_SITE_KEY = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+  ? '1x00000000000000000000AA'
+  : '0x4AAAAAAFWBtDP1V2o-3Pps';
+const turnstileWidgets = new Map(); // form → widget ID
+const turnstileFailed = new Set(); // forms whose widget could not run
+let turnstileScriptFailed = false;
+const contactForms = document.querySelectorAll('form.js-cform');
+if (contactForms.length) {
+  window.onTurnstileLoad = () => contactForms.forEach((form) => {
+    const slot = document.createElement('div');
+    slot.className = 'form-turnstile';
+    (form.querySelector('.form-submit') || form.lastElementChild).before(slot);
+    turnstileWidgets.set(form, window.turnstile.render(slot, {
+      sitekey: TURNSTILE_SITE_KEY,
+      action: 'contact', // checked server-side
+      theme: 'light',
+      size: slot.clientWidth < 300 ? 'compact' : 'normal', // normal is 300px wide
+      appearance: 'interaction-only', // invisible unless a visitor must interact
+      'before-interactive-callback': () => { slot.style.margin = '0 0 1rem'; },
+      'after-interactive-callback': () => { slot.style.margin = ''; },
+      callback: () => turnstileFailed.delete(form),
+      'error-callback': () => { turnstileFailed.add(form); }
+    }));
+  });
+  const ts = document.createElement('script');
+  ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad';
+  ts.async = true;
+  ts.onerror = () => { turnstileScriptFailed = true; };
+  document.head.appendChild(ts);
+}
+const resetTurnstile = (form) => {
+  const id = turnstileWidgets.get(form);
+  if (id !== undefined) window.turnstile.reset(id); // tokens are single-use
+};
+
+// ── "Something else" details: shown and required only for that choice ──
+document.querySelectorAll('[data-other-for]').forEach((grp) => {
+  const select = document.getElementById(grp.dataset.otherFor);
+  const input = grp.querySelector('input, textarea');
+  if (!select || !input) return;
+  const sync = () => {
+    const show = select.value === grp.dataset.otherValue;
+    grp.hidden = !show;
+    input.required = show;
+    if (!show) input.value = '';
+  };
+  select.addEventListener('change', sync);
+  sync(); // also covers a value restored by the browser
+});
+
 // ── FORMS: general enquiry + sector reviews all post to /api/contact ──
-document.querySelectorAll('form.js-cform').forEach((form) => {
+contactForms.forEach((form) => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const errEl = form.querySelector('.form-error');
@@ -61,9 +113,26 @@ document.querySelectorAll('form.js-cform').forEach((form) => {
 
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
-    // Serialise every named field in DOM order
+    const widget = turnstileWidgets.get(form);
+    const turnstileToken = widget === undefined ? '' : window.turnstile.getResponse(widget);
+    if (!turnstileToken) {
+      const broken = turnstileScriptFailed || turnstileFailed.has(form);
+      if (errEl) {
+        errEl.textContent = broken
+          ? 'Our security check could not run in this browser. Please allow challenges.cloudflare.com, reload the page, or email hello@creovateglobal.com directly.'
+          : 'Please wait a moment while we complete a quick security check, then send again.';
+        errEl.style.display = 'block';
+      }
+      if (turnstileFailed.has(form)) resetTurnstile(form);
+      return;
+    }
+
+    // Serialise every named field in DOM order. The single-use Turnstile token is
+    // sent alongside, not as one of the answers.
     const payload = {};
-    new FormData(form).forEach((v, k) => { payload[k] = typeof v === 'string' ? v.trim() : v; });
+    new FormData(form).forEach((v, k) => {
+      if (k !== 'cf-turnstile-response') payload[k] = typeof v === 'string' ? v.trim() : v;
+    });
     payload.consent = form.querySelector('[name="consent"]')?.checked ? 'yes' : '';
 
     // One submission ID per distinct set of answers: a retry after a network
@@ -83,7 +152,7 @@ document.querySelectorAll('form.js-cform').forEach((form) => {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ ...payload, 'cf-turnstile-response': turnstileToken })
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.ok) {
@@ -100,6 +169,7 @@ document.querySelectorAll('form.js-cform').forEach((form) => {
         errEl.style.display = 'block';
       }
       if (btn) { btn.disabled = false; btn.textContent = label; }
+      resetTurnstile(form);
     }
   });
 });

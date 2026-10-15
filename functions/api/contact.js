@@ -10,6 +10,8 @@
 //
 // Pages secrets (server-only, never in client code):
 //   RESEND_API_KEY                — required
+//   TURNSTILE_SECRET_KEY          — required; every submission must pass Siteverify before
+//                                   anything is recorded or emailed (fails closed without it)
 //   SALES_INTAKE_URL              — e.g. https://intake.salesos.creovateglobal.com/v1/enquiries
 //   SALES_INTAKE_KEY_ID / SALES_INTAKE_SECRET — HMAC key shared only with the Sales intake Worker
 // Without the SALES_* values the form behaves exactly as before (email only).
@@ -22,7 +24,8 @@ const LABELS = {
   systems: 'Systems used', software: 'Practice software', friction: 'Friction points',
   operations: 'How it works now', bottleneck: 'Biggest bottleneck',
   industry: 'Industry / sector', timeline: 'Timeline',
-  contact_method: 'Preferred contact', service: 'Service', budget: 'Budget', message: 'Message'
+  contact_method: 'Preferred contact', service: 'Service', service_other: 'Service description',
+  budget: 'Budget', message: 'Message'
 };
 const MAX_BODY = 32768;
 const MAX_FIELDS = 30;
@@ -38,6 +41,10 @@ export async function onRequestPost(context) {
     try { data = JSON.parse(raw); } catch { data = null; }
     if (!data || typeof data !== 'object' || Array.isArray(data)) return json({ ok: false, error: 'Invalid request.' }, 400);
 
+    // Turnstile adds this field to the form; it is checked below and never emailed.
+    const turnstileToken = data[TURNSTILE_FIELD];
+    delete data[TURNSTILE_FIELD];
+
     // Honeypot — silently accept and drop bot submissions
     if (data.website) return json({ ok: true });
 
@@ -52,6 +59,12 @@ export async function onRequestPost(context) {
       return json({ ok: false, error: 'Please enter a valid name and email address.' }, 400);
     }
     if (Object.keys(data).length > MAX_FIELDS + RESERVED.size) return json({ ok: false, error: 'Invalid request.' }, 400);
+
+    // Bot check before anything is sent. Field errors above return first, so the
+    // visitor can correct them without the token being spent.
+    const check = await verifyTurnstile(env, turnstileToken, request);
+    if (!check.ok) return json({ ok: false, error: check.error }, check.status);
+
     if (!env.RESEND_API_KEY) {
       return json({ ok: false, error: 'Email service is not configured yet.' }, 500);
     }
@@ -192,6 +205,46 @@ async function recordInSales(env, submissionId, payload, now = Date.now()) {
   } catch (e) {
     return { recorded: false, reason: 'Sales OS unreachable' };
   }
+}
+
+// ── Cloudflare Turnstile (server-side Siteverify) ──
+const TURNSTILE_FIELD = 'cf-turnstile-response';
+const TURNSTILE_ACTION = 'contact'; // must match the action set in assets/js/main.js
+const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+// Cloudflare's published test secrets return fixed results without a real action or
+// hostname. Production secrets reject test tokens, so this only affects local testing.
+const TEST_SECRET = /^[123]x0{31}AA$/;
+
+export async function verifyTurnstile(env, token, request) {
+  const unavailable = { ok: false, status: 503, error: 'Our security check is unavailable right now. Please try again shortly.' };
+  if (!env.TURNSTILE_SECRET_KEY) return unavailable; // fail closed
+  if (typeof token !== 'string' || !token || token.length > 2048) {
+    return { ok: false, status: 400, error: 'Please complete the security check and try again.' };
+  }
+  let result;
+  try {
+    const res = await fetch(SITEVERIFY, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: env.TURNSTILE_SECRET_KEY,
+        response: token,
+        remoteip: request.headers.get('CF-Connecting-IP') || undefined
+      }),
+      signal: AbortSignal.timeout(5000)
+    });
+    result = await res.json();
+  } catch (e) {
+    return unavailable;
+  }
+  const failed = { ok: false, status: 403, error: 'The security check expired or could not be confirmed. Please try again.' };
+  if (!result || result.success !== true) return failed;
+  if (!TEST_SECRET.test(env.TURNSTILE_SECRET_KEY)) {
+    // A token is only valid for this form and the site it was issued on.
+    if (result.action !== TURNSTILE_ACTION) return failed;
+    if (result.hostname !== new URL(request.url).hostname) return failed;
+  }
+  return { ok: true };
 }
 
 function json(obj, status = 200) {
