@@ -169,8 +169,12 @@ test('service description is included in the notification email', async () => {
   assert.equal(verifications().length, 1, 'Turnstile still verified')
 })
 
-test('only the two service dropdowns get the description field, hidden and optional by default', async () => {
-  for (const [page, select] of [['quote', 'q-service'], ['start-project', 'p-type']]) {
+test('contact, quote and start-project get the description field, hidden and optional by default', async () => {
+  for (const [page, select, label] of [
+    ['contact', 'f-svc', 'Please describe what you need'],
+    ['quote', 'q-service', 'Please describe the service you need'],
+    ['start-project', 'p-type', 'Please describe the service you need'],
+  ]) {
     const html = await readFile(new URL(`../${page}.html`, import.meta.url), 'utf8')
     const groups = html.match(/<div class="form-grp" data-other-for="[^"]+"[^>]*>.*?<\/div>/g) || []
     assert.equal(groups.length, 1, page)
@@ -178,14 +182,26 @@ test('only the two service dropdowns get the description field, hidden and optio
     assert.match(grp, new RegExp(`data-other-for="${select}"`), page)
     assert.match(grp, /data-other-value="Something else"/, page)
     assert.match(grp, / hidden>/, `${page}: hidden until chosen`)
-    assert.match(grp, /<label for="([^"]+)">Please describe the service you need<\/label><input id="\1" type="text" name="service_other"/, page)
+    assert.match(grp, new RegExp(`<label for="([^"]+)">${label}</label><input id="\\1" type="text" name="service_other"`), page)
     assert.doesNotMatch(grp, /required/, `${page}: not required in markup`)
-    const dropdown = html.slice(html.indexOf(`<select id="${select}" name="service" required>`))
-    assert.match(dropdown.slice(0, dropdown.indexOf('</select>')), /<option>Something else<\/option>/, `${page}: trigger option exists`)
+    const start = html.search(new RegExp(`<select id="${select}" name="service"[ >]`))
+    assert.ok(start > 0, `${page}: dropdown exists`)
+    const dropdown = html.slice(start, html.indexOf('</select>', start))
+    assert.match(dropdown, /<option>Something else<\/option>/, `${page}: trigger option exists`)
+    assert.ok(html.indexOf(grp) > start, `${page}: field sits after its dropdown`)
   }
-  for (const page of ['contact', 'review', 'distribution', 'accounting'])
+  for (const page of ['review', 'distribution', 'accounting'])
     assert.doesNotMatch(await readFile(new URL(`../${page}.html`, import.meta.url), 'utf8'), /data-other-for/, page)
   assert.match(await readFile(new URL('../assets/css/styles.css', import.meta.url), 'utf8'), /\.form-grp\[hidden\] \{ display: none; \}/)
+})
+
+test('contact form: "Something else" description reaches the notification email', async () => {
+  stub()
+  const res = await post({ ...form, type: 'General Enquiry', service: 'Something else', service_other: 'Help choosing a CRM' })
+  assert.equal(res.status, 200)
+  const [notification] = emails()
+  assert.match(notification.body.text, /Service: Something else\n/)
+  assert.match(notification.body.text, /Service description: Help choosing a CRM\n/)
 })
 
 test('conditional behaviour: shown and required only for "Something else", cleared otherwise', async () => {
